@@ -1,9 +1,15 @@
 import java.util.*
 
 
+val scan: Scanner = Scanner (System.`in`)
+
 fun main() {
-    val menu = Menu()
-    menu.choose()
+    scan.use {
+        val menu = Menu()
+        menu.choose()
+    }
 }
+
+
 
 

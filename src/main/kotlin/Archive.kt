@@ -1,7 +1,5 @@
-import java.util.Scanner
 
-class Archive (val name: String) {
-        val scan: Scanner = Scanner(System.`in`)
+class Archive (name: String) : Node(name), Entry {
         var content = mutableListOf<Note>()
 
         fun add( note: Note) {
@@ -11,31 +9,13 @@ class Archive (val name: String) {
         fun showNotes(content: List<Note>) :Int {
                 println("Список заметок:")
                 println("0. Создать заметку")
-                var count = 1
-                for ( item in content) {
-                        println("$count. ${item.name}")
-                        count++
-                }
-                println("$count. Выход")
-                return count
+                return show(content)
         }
 
-        fun input(maxCount: Int) : Int {
-                while (true) {
-                        try {
-                                val next = scan.nextLine().toInt()
-                                if (next in 0..maxCount) return next
-                                println("Введие число соответсвующее пункту меню")
-                        } catch (e: java.lang.Exception) {
-                                println("Введие число соответсвующее пункту меню")
-                        }
-                }
-        }
-
-        fun chooseNotes() {
+        override fun choose() {
                 while (true) {
                         val maxCount = showNotes(content)
-                        val choiceNumber = input(maxCount)
+                        val choiceNumber = inputMenu(maxCount)
                         if (choiceNumber == 0) {
                                 println("Введите название заметки")
                                 val name = scan.nextLine()

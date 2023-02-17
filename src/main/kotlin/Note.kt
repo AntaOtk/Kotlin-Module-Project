@@ -1,2 +1,1 @@
-class Note ( val name: String,val contentNote: String)
-
+class Note ( name: String,val contentNote: String): Node(name)
