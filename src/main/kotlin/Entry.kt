@@ -1,6 +1,6 @@
 interface Entry {
 
-    fun inputMenu(maxCount: Int) : Int {
+    fun inputMenu(maxCount: Int): Int {
         while (true) {
             try {
                 val next = scan.nextLine().toInt()
@@ -12,11 +12,9 @@ interface Entry {
         }
     }
 
-    fun choose()
-
-    fun  show (content: List<Node>) :Int {
+    fun show(content: List<Node>): Int {
         var count = 1
-        for ( item in content) {
+        for (item in content) {
             println("$count. ${item.name}")
             count++
         }

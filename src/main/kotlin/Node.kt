@@ -1,3 +1,1 @@
-abstract class Node (val name: String) {
-
-}
+abstract class Node(val name: String)
