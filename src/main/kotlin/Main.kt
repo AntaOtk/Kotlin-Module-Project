@@ -1,5 +1,18 @@
+import java.util.*
+
+
+val scan: Scanner = Scanner(System.`in`)
+
 fun main() {
-    // ваш код начнется здесь
-    // вы не должны ограничиваться только классом Main и можете создавать свои классы по необходимости
-    println("Привет")
+    scan.use {
+        val book = Library()
+        choose(book)
+    }
 }
+
+interface Named{
+    val name: String
+}
+
+
+
