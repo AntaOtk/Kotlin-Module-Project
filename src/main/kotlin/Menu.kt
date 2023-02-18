@@ -1,41 +1,39 @@
-class Menu : Entry() {
-    private var archiveList = mutableListOf<Archive>()
-
-
-    private fun showPreveiw() {
-        println("Список архивов:")
-        println("0. Создать архив")
-
+    fun inputMenu(maxCount: Int): Int {
+        while (true) {
+            try {
+                val next = scan.nextLine().toInt()
+                if (next in 0..maxCount) return next
+                println("Введите число, соответствующее пункту меню")
+            } catch (e: java.lang.Exception) {
+                println("Введите число")
+            }
+        }
     }
 
-    fun chooseArchive() {
+    fun show(node: Node<*>): Int {
+        var count = 1
+        for (item in node.content) {
+            println("$count. ${item.name}")
+            count++
+        }
+        println("$count. Выход")
+        return count
+    }
+
+
+    fun choose(item: Node<*>) {
         while (true) {
-            showPreveiw()
-            val maxCount = show(archiveList)
+            item.showPreview()
+            val maxCount = show(item)
             when (val choiceNumber = inputMenu(maxCount)) {
-                0 -> {
-                    println("Введите название архива")
-                    archiveList.add(Archive(scan.nextLine()))
+                0 -> item.add()
+                maxCount -> break
+                else -> {
+                    val element = item.content[choiceNumber - 1]
+                    if (element is Archive) {
+                        choose(element)
+                    } else if (element is Note) { element.showContent()}
                 }
-                maxCount -> break
-                else -> chooseNote(archiveList[choiceNumber - 1])
             }
         }
     }
-    private fun chooseNote(arh: Archive) {
-        while (true) {
-            arh.showPreview()
-            val maxCount = show(arh.noteList)
-            when (val choiceNumber = inputMenu(maxCount)) {
-                0 -> {
-                    println("Введите название заметки")
-                    val name = scan.nextLine()
-                    println("Введите содержимое заметки")
-                    val value = scan.nextLine()
-                    arh.add(Note(name, value))}
-                maxCount -> break
-                else -> arh.noteList[choiceNumber - 1].showContent()
-            }
-        }
-    }
-}

@@ -5,11 +5,14 @@ val scan: Scanner = Scanner(System.`in`)
 
 fun main() {
     scan.use {
-        val menu = Menu()
-        menu.chooseArchive()
+        val book = Library()
+        choose(book)
     }
 }
 
+interface Named{
+    val name: String
+}
 
 
 
