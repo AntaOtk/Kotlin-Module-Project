@@ -1,23 +1,41 @@
-class Menu : Entry {
-    var content = mutableListOf<Archive>()
+class Menu : Entry() {
+    private var archiveList = mutableListOf<Archive>()
 
 
-    fun showContent(content: List<Archive>): Int {
+    private fun showPreveiw() {
         println("Список архивов:")
         println("0. Создать архив")
-        return show(content)
+
     }
 
-    fun choose() {
+    fun chooseArchive() {
         while (true) {
-            val maxCount = showContent(content)
-            val choiceNumber = inputMenu(maxCount)
-            if (choiceNumber == 0) {
-                println("Введите название архива")
-                content.add(Archive(scan.nextLine()))
-            } else if (choiceNumber == maxCount) {
-                break
-            } else content[choiceNumber - 1].choose()
+            showPreveiw()
+            val maxCount = show(archiveList)
+            when (val choiceNumber = inputMenu(maxCount)) {
+                0 -> {
+                    println("Введите название архива")
+                    archiveList.add(Archive(scan.nextLine()))
+                }
+                maxCount -> break
+                else -> chooseNote(archiveList[choiceNumber - 1])
+            }
+        }
+    }
+    private fun chooseNote(arh: Archive) {
+        while (true) {
+            arh.showPreview()
+            val maxCount = show(arh.noteList)
+            when (val choiceNumber = inputMenu(maxCount)) {
+                0 -> {
+                    println("Введите название заметки")
+                    val name = scan.nextLine()
+                    println("Введите содержимое заметки")
+                    val value = scan.nextLine()
+                    arh.add(Note(name, value))}
+                maxCount -> break
+                else -> arh.noteList[choiceNumber - 1].showContent()
+            }
         }
     }
 }

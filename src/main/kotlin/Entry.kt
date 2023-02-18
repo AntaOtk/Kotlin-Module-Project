@@ -1,13 +1,13 @@
-interface Entry {
+abstract class Entry {
 
     fun inputMenu(maxCount: Int): Int {
         while (true) {
             try {
                 val next = scan.nextLine().toInt()
                 if (next in 0..maxCount) return next
-                println("Введие число соответсвующее пункту меню")
+                println("Введите число, соответствующее пункту меню")
             } catch (e: java.lang.Exception) {
-                println("Введие число соответсвующее пункту меню")
+                println("Введите число")
             }
         }
     }
